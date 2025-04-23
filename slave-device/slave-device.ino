@@ -1,31 +1,3 @@
-#include <Arduino.h>
-#include <SoftwareSerial.h>
-#include "motorControl.h"
-#include "sensors.h"
-#include <Servo.h>
-
-Servo fin;
-Servo conveyors;
-const int finPin = 11;
-const int conveyorPin = 10;
-
-void initServo() {
-  conveyors.attach(conveyorPin);
-  fin.attach(finPin);
-}
-
-void runConveyor() {
-  conveyors.write(180);
-  Serial.println("Conveyor is running");
-}
-
-void finMotor(int angle) {
-  fin.write(angle);
-  Serial.print("Fin motor: ");
-  Serial.println(angle);
-}
-SoftwareSerial BTSerial(12, 13); // RX, TX
-
 char command = 'X';
 unsigned long lastCommandTime = 0;
 unsigned long prevTime = 0;
@@ -74,12 +46,12 @@ void loop() {
     long r = rightSide();
     Serial.print("Left: "); Serial.print(l); Serial.print(" cm\t");
     Serial.print("Right: "); Serial.println(r);
-    if (l < 20) {
+    if (l < 50) {
       finMotor(30);
       runMotors(150);
       Serial.println("Pass in left side");
       delay(5000);
-    } else if (r  < 20) {
+    } else if (r  < 50) {
       finMotor(150);
       runMotors(150);
       Serial.println("Pass in right side");

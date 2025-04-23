@@ -27,7 +27,6 @@ long rightSide() {
   duration = pulseIn(echR, HIGH);
   return duration / 58.2;
 }
-
 long leftSide() {
   long duration = 0;
   

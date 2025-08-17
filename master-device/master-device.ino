@@ -6,10 +6,6 @@ SoftwareSerial BTSerial(2, 3); // RX, TX
 const int joyX = A0;
 const int joyY = A1;
 
-// Threshold to detect joystick direction
-const int threshold = 200;
-
-// Track last direction to prevent repeat sending
 char lastCommand = 'X';
 
 void setup() {
@@ -24,7 +20,7 @@ void loop() {
   int yVal = analogRead(joyY);
   char command = 'H'; // Default is Stop
 
-  // Determine direction based on thresholds
+  // Determine direction
   if (yVal < 512 - threshold) {
     command = 'L'; // Forward 
   } else if (yVal > 512 + threshold) {
@@ -45,5 +41,5 @@ void loop() {
     lastCommand = command;
   }
 
-  delay(200); // small delay to avoid spamming
+  delay(200);
 }
